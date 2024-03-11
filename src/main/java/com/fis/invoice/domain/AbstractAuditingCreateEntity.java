@@ -34,20 +34,20 @@ public abstract class AbstractAuditingCreateEntity implements Serializable {
     @CreatedBy
     @Column(name = "CREATED_BY", nullable = false, length = 40, updatable = false)
     @JsonIgnore
-    private String nguoiTao = getCurrentUser().getName();
+    private String createdBy;
 
     @CreatedDate
     @Column(name = "CREATED", updatable = false)
     @JsonIgnore
-    private Date ngayTao = new Date(System.currentTimeMillis());
+    private Date createdDate = new Date(System.currentTimeMillis());
     
     @LastModifiedBy
     @Column(name="UPDATED_BY")
     @JsonIgnore
-	private String nguoiSua;
+	private String updatedBy;
     
     @LastModifiedDate
 	@Column(name="UPDATED")
     @JsonIgnore
-	private Date ngaySua = new Date(System.currentTimeMillis());
+	private Date updatedDate = new Date(System.currentTimeMillis());
 }
