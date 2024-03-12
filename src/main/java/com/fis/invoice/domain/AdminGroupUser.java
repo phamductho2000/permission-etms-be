@@ -1,9 +1,7 @@
 package com.fis.invoice.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import io.lettuce.core.dynamic.annotation.CommandNaming;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +17,7 @@ import java.sql.Timestamp;
 public class AdminGroupUser {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "GROUP_ID")
     private BigInteger groupId;
 
@@ -36,5 +35,5 @@ public class AdminGroupUser {
 
     @Column(name = "UPDATED_BY")
     private String updatedBy;
-    
+
 }
