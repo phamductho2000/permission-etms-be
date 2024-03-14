@@ -1,15 +1,9 @@
 package com.fis.invoice.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.math.BigInteger;
-import java.sql.Timestamp;
 
 
 @Data
@@ -17,24 +11,25 @@ import java.sql.Timestamp;
 @Table(name = "ADMIN_ROLE_USER")
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminRoleUser {
+@IdClass(AdminRoleUserPk.class)
+public class AdminRoleUser extends AbstractAuditingCreateEntity {
     @Id
 
     @Column(name = "ROLE_ID")
-    private BigInteger roleId;
-
+    private Integer roleId;
+    @Id
     @Column(name = "USER_ID")
-    private BigInteger userId;
+    private Integer userId;
 
-    @Column(name = "CREATED")
-    private Timestamp created;
-
-    @Column(name = "UPDATED")
-    private Timestamp updated;
-
-    @Column(name = "CREATED_BY")
-    private String createdBy;
-
-    @Column(name = "UPDATED_BY")
-    private String updatedBy;
+//    @Column(name = "CREATED")
+//    private Timestamp created;
+//
+//    @Column(name = "UPDATED")
+//    private Timestamp updated;
+//
+//    @Column(name = "CREATED_BY")
+//    private String createdBy;
+//
+//    @Column(name = "UPDATED_BY")
+//    private String updatedBy;
 }

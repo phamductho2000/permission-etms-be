@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(schema = "ADMIN_ROLE_FUNC")
+@Table(name = "ADMIN_ROLE_FUNC")
 @IdClass(AdminRoleFunctionPk.class)
-public class AdminRoleFunction extends AbstractAuditingCreateEntity {
+public class AdminRoleFunction {
     @Id
     @Column(name = "ROLE_ID")
     private Integer roleId;

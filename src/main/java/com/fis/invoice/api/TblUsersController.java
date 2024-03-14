@@ -36,7 +36,7 @@ public class TblUsersController {
     }
 
     @PutMapping("/updateTblUser")
-    public ResponseEntity<?> updateDmPhuongThucDaoTao( @RequestBody TblUsersDTO tblUsersDTO) throws Exception {
+    public ResponseEntity<?> updateTblUser( @RequestBody TblUsersDTO tblUsersDTO) throws Exception {
         return ResponseEntity.ok(tblUsersDTO);
     }
 }

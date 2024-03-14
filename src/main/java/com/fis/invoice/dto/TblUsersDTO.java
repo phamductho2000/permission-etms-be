@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TblUsersDTO {
-    private BigInteger userId;
+    private Integer userId;
 
     private String username;
 

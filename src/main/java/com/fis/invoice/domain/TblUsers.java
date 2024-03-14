@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 public class TblUsers {
     @Id
     @Column(name = "USER_ID")
-    private BigInteger userId;
+    private Integer userId;
 
     @Column(name = "USERNAME")
     private String username;

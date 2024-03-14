@@ -16,11 +16,11 @@ public class AdminRoleUserDTO {
 
     private BigInteger userId;
 
-    private Timestamp created;
+//    private Timestamp created;
 
     private Timestamp updated;
 
-    private String createdBy;
-
-    private String updatedBy;
+//    private String createdBy;
+//
+//    private String updatedBy;
 }
