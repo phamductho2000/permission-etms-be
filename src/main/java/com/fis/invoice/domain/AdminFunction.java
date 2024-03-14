@@ -5,12 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigInteger;
+import java.util.Objects;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(schema = "ADMIN_FUNCTION")
+@Table(name = "ADMIN_FUNCTION")
 @Entity
-public class AdminFunction extends AbstractAuditingCreateEntity {
+public class AdminFunction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

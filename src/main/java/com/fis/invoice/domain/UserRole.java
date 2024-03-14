@@ -16,7 +16,6 @@ import java.util.Objects;
 @NoArgsConstructor
 public class UserRole {
     @Id
-
     @Column(name = "USER_ID")
     private BigInteger userId;
 

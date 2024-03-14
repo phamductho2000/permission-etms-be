@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AdminFunctionRepository extends JpaRepository<AdminFunction, String>, JpaSpecificationExecutor<AdminFunction> {
+public interface AdminFunctionRepository extends JpaRepository<AdminFunction, Integer>, JpaSpecificationExecutor<AdminFunction> {
+
 }

@@ -50,7 +50,9 @@ public class SecurityConfig {
 		// @formatter:off
 		http.csrf(AbstractHttpConfigurer::disable)
 		.sessionManagement(se-> se.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-		.authorizeHttpRequests(au -> au.requestMatchers(HttpMethod.OPTIONS).permitAll().requestMatchers("/api/authenticate").permitAll().anyRequest().authenticated())
+		.authorizeHttpRequests(au -> au.requestMatchers(HttpMethod.OPTIONS).permitAll()
+				.requestMatchers(AUTH_WHITELIST).permitAll()
+				.anyRequest().permitAll())
 		.exceptionHandling(ex -> ex.authenticationEntryPoint(authEntryPoint))
 		.apply(securityConfigurerAdapter());
 		// @formatter:on
@@ -79,6 +81,24 @@ public class SecurityConfig {
 //		source.registerCorsConfiguration("/api/**", config);
 //		return new CorsFilter(source);
 //	}
+
+	private static final String[] AUTH_WHITELIST = {
+			// -- Swagger UI v2
+			"/v2/api-docs",
+			"/swagger-resources",
+			"/swagger-resources/**",
+			"/configuration/ui",
+			"/version/api/v1/get_latest",
+			"/configuration/security",
+			"/swagger-ui.html",
+			"/webjars/**",
+			// -- Swagger UI v3 (OpenAPI)
+			"/v3/api-docs/**",
+			"/swagger-ui/**",
+			"/actuator/**",
+			"/favicon.ico",
+			"/api/authenticate",
+	};
 	
 
 }

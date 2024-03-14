@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TblUsersRepository extends JpaRepository<TblUsers, String>, JpaSpecificationExecutor<TblUsers> {
+public interface TblUsersRepository extends JpaRepository<TblUsers, Integer>, JpaSpecificationExecutor<TblUsers> {
     List<TblUsers> findAllByUsername(String userName);
 }
