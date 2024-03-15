@@ -5,19 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
 import java.sql.Timestamp;
-import java.util.Objects;
 
 @Data
 @Entity
 @Table(name = "USER_ROLE")
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRole {
+public class UserRole extends AbstractAuditingCreateEntity {
     @Id
     @Column(name = "USER_ID")
-    private BigInteger userId;
+    private Integer userId;
 
     @Column(name = "USERNAME")
     private String username;
@@ -31,15 +29,16 @@ public class UserRole {
     @Column(name = "AREA_TYPE")
     private String areaType;
 
-    @Column(name = "CREATED")
-    private Timestamp created;
+//    @Column(name = "CREATED")
+//    private Timestamp created;
+//
+//    @Column(name = "UPDATED")
+//    private Timestamp updated;
+//
+////    @Column(name = "CREATED_BY")
+////    private String createdBy;
+//
+//    @Column(name = "CREATED_DATE")
+//    private String createdDate;
 
-    @Column(name = "UPDATED")
-    private Timestamp updated;
-
-//    @Column(name = "CREATED_BY")
-//    private String createdBy;
-
-    @Column(name = "CREATED_DATE")
-    private String createdDate;
 }

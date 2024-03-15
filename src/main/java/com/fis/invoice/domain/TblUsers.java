@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 @Table(name = "TBL_USERS")
 @AllArgsConstructor
 @NoArgsConstructor
+@IdClass(TblUserPk.class)
 public class TblUsers {
     @Id
     @Column(name = "USER_ID")
@@ -21,6 +22,7 @@ public class TblUsers {
     @Column(name = "USERNAME")
     private String username;
 
+    @Id
     @Column(name = "MA_CQT")
     private String maCqt;
 

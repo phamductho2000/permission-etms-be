@@ -1,5 +1,6 @@
 package com.fis.invoice.api;
 
+import com.fis.invoice.dto.TblUsersDTO;
 import com.fis.invoice.dto.UserRoleDTO;
 import com.fis.invoice.service.UserRoleService;
 import org.slf4j.Logger;
@@ -35,12 +36,19 @@ public class UserRoleController {
         return new ResponseEntity<>(userRoleService.create(userRoleDTO), HttpStatus.OK);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update/UserRole")
     public ResponseEntity<UserRoleDTO> updateUserRole(@RequestBody UserRoleDTO userRoleDTO) throws Exception {
         Optional<UserRoleDTO> result = Optional.ofNullable(userRoleService.update(userRoleDTO));
-        if(result.isPresent()) {
+        if(result.isEmpty()) {
             throw new Exception("Cập nhật không thành công");
         }
+        result.get().setSuccess(true);
         return ResponseEntity.ok(userRoleDTO);
+    }
+
+    @PostMapping("/findAllUserRoleGroupId")
+    public ResponseEntity<List<UserRoleDTO>> findAllUserRoleGroupId(@RequestBody  UserRoleDTO req ) throws Exception {
+        log.debug("REST request to findAllUserRoleGroupId  : {}", req);
+        return ResponseEntity.ok(userRoleService.findAllUserRoleGroupId(req));
     }
 }

@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRoleDTO {
-    private BigInteger userId;
+    private Integer userId;
     private String username;
     private String descr;
     private String areaCode;
@@ -20,4 +20,6 @@ public class UserRoleDTO {
     private Timestamp updated;
     private String createdBy;
     private String createdDate;
+
+    private Boolean success;
 }

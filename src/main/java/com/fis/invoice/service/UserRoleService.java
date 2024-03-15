@@ -1,6 +1,7 @@
 package com.fis.invoice.service;
 
 import com.fis.invoice.domain.UserRole;
+import com.fis.invoice.dto.TblUsersDTO;
 import com.fis.invoice.dto.UserRoleDTO;
 import com.fis.invoice.repository.UserRoleRepository;
 import org.modelmapper.ModelMapper;
@@ -55,11 +56,22 @@ public class UserRoleService {
         log.debug("Request to update userRole");
         try {
             UserRole userRole = new UserRole();
+            userRole.getUserId();
+            userRole.setAreaCode(userRole.getAreaCode());
             BeanUtils.copyProperties(userRoleDTO,userRole);
             userRoleRepository.save(userRole);
         }catch (Exception e) {
             e.printStackTrace();
         }
         return userRoleDTO;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    public List<UserRoleDTO> findAllUserRoleGroupId(UserRoleDTO userRoleDTO) throws Exception {
+        log.debug("Request to get findAllUserRoleGroupId");
+
+        return userRoleRepository.findAllByUserId(userRoleDTO.getUserId()).stream()
+                .map(existing -> modelMapper.map(existing, UserRoleDTO.class))
+                .collect(Collectors.toList());
     }
 }

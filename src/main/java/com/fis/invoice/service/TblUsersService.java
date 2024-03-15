@@ -1,8 +1,13 @@
 package com.fis.invoice.service;
 
+import com.fis.invoice.domain.AdminRoleUser;
 import com.fis.invoice.domain.TblUsers;
+import com.fis.invoice.domain.ZtbMapCqt;
+import com.fis.invoice.dto.AdminRoleUserDTO;
+import com.fis.invoice.dto.ReqTblUserDTO;
 import com.fis.invoice.dto.TblUsersDTO;
 import com.fis.invoice.repository.TblUsersRepository;
+import com.fis.invoice.repository.ZtbMapCqtRepository;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +27,8 @@ public class TblUsersService {
 
     @Autowired
     private TblUsersRepository tblUsersRepository;
+    @Autowired
+    private ZtbMapCqtRepository ztbMapCqtRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -29,7 +36,15 @@ public class TblUsersService {
     @Transactional (readOnly = true)
     public List<TblUsersDTO> findAll() throws Exception {
         log.debug("Request to get all TblUsers");
-        return tblUsersRepository.findAll().stream().map(exitting -> modelMapper.map(exitting, TblUsersDTO.class)).collect(Collectors.toList());
+        return tblUsersRepository.findAll().stream()
+                .map(exitting -> {
+                    TblUsersDTO dto = new TblUsersDTO();
+                    // check data trong db có trường nào bị null ko
+                    if (exitting != null)
+                        dto = modelMapper.map(exitting, TblUsersDTO.class);
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
@@ -39,10 +54,41 @@ public class TblUsersService {
     }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
-    public TblUsersDTO updateTblUser(TblUsersDTO tblUsersDTO) throws Exception {
-        log.debug("Request to update TblUsers : {}", tblUsersDTO);
-        TblUsers tblUsers = new TblUsers();
-        tblUsersRepository.save(tblUsers);
-        return tblUsersDTO;
+    public ReqTblUserDTO updateTblUser(ReqTblUserDTO req) throws Exception {
+        log.debug("Request to update updateTblUser");
+        try {
+            // find all function by role id
+            List<TblUsers> tblUsersDTOS = tblUsersRepository.findAllByUserIdIs(req.getUserId());
+            if (!tblUsersDTOS.isEmpty()) {
+                // remove all
+                tblUsersRepository.deleteAll(tblUsersDTOS);
+            }
+
+            // insert new theo UserId và mcqthue
+            List<String> maCQT = req.getTblUsersDTOS().stream().map(f -> f.getMaCqt()).collect(Collectors.toList());
+            if (!maCQT.isEmpty()) {
+                List<ZtbMapCqt> ztbMapCqts = ztbMapCqtRepository.findAllById(maCQT);
+                if (!ztbMapCqts.isEmpty()) {
+                    ztbMapCqts.forEach(func -> {
+                        TblUsers tblUsers = new TblUsers();
+                        tblUsers.setUserId(req.getUserId());
+                        tblUsers.setMaCqt(String.valueOf(func.getMaCqt()));
+                        tblUsersRepository.save(tblUsers);
+                    });
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return req;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    public List<TblUsersDTO> findAllTblUserGroupId(TblUsersDTO tblUsersDTO) throws Exception {
+        log.debug("Request to get findAllTblUserGroupId");
+
+        return tblUsersRepository.findAllTblUserGroupId(tblUsersDTO.getUserId()).stream()
+                .map(existing -> modelMapper.map(existing, TblUsersDTO.class))
+                .collect(Collectors.toList());
     }
 }
