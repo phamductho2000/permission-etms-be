@@ -28,17 +28,18 @@ public class AdminRoleController {
     }
 
 
-    @PostMapping("/create")
+    @PostMapping("/createAdminRole")
     public ResponseEntity<AdminRoleDTO> createAdminRole(@RequestBody AdminRoleDTO adminRoleDTO) throws Exception {
         return new ResponseEntity<>(adminRoleService.create(adminRoleDTO), HttpStatus.OK);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/updateAdminRole")
     public ResponseEntity<AdminRoleDTO> updateAdminRole(@RequestBody AdminRoleDTO adminRoleDTO) throws Exception {
         Optional<AdminRoleDTO> result = Optional.ofNullable(adminRoleService.update(adminRoleDTO));
-        if (result.isPresent()) {
+        if (result.isEmpty()) {
             throw new Exception("Cập nhật không thành công");
         }
+        result.get().setSuccess(true);
         return ResponseEntity.ok(adminRoleDTO);
     }
 

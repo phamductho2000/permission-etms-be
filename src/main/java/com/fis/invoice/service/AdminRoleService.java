@@ -45,6 +45,7 @@ public class AdminRoleService {
         return adminRoleDTO;
     }
     // Update
+    @Transactional
     public AdminRoleDTO update(AdminRoleDTO adminRoleDTO) throws Exception {
         log.debug("Request to update adminRoleFunction");
         try {

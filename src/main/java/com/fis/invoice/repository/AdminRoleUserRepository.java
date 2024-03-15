@@ -1,6 +1,5 @@
 package com.fis.invoice.repository;
 
-import com.fis.invoice.domain.AdminFunction;
 import com.fis.invoice.domain.AdminRoleUser;
 import com.fis.invoice.domain.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;

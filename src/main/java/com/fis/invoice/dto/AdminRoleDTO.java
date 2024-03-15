@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdminRoleDTO {
-    private BigInteger roleId;
+    private Long roleId;
 
     private String roleName;
 
@@ -21,4 +21,6 @@ public class AdminRoleDTO {
 
     private BigInteger qtct;
     private Date updatedDate;
+
+    private Boolean success;
 }
