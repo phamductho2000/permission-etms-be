@@ -61,7 +61,7 @@ public class AdminRoleUserService {
             // insert new
             List<Integer> UserIds = req.getTblUsersDTOS().stream().map(f -> f.getUserId()).collect(Collectors.toList());
             if (!UserIds.isEmpty()) {
-                List<TblUsers> tblUsers = tblUsersRepository.findAllById(UserIds);
+                List<TblUsers> tblUsers = tblUsersRepository.findAllByUserIdIn(UserIds);
                 if (!tblUsers.isEmpty()) {
                     tblUsers.forEach(func -> {
                         AdminRoleUser adminRoleUser = new AdminRoleUser();

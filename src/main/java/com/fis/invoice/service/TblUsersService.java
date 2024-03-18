@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +34,7 @@ public class TblUsersService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Transactional (readOnly = true)
+    @Transactional(readOnly = true)
     public List<TblUsersDTO> findAll() throws Exception {
         log.debug("Request to get all TblUsers");
         return tblUsersRepository.findAll().stream()
@@ -50,7 +51,17 @@ public class TblUsersService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
     public List<TblUsersDTO> findAllBySearch(String userName) throws Exception {
         log.debug("Request to get all findAllBySearch TblUsers");
-        return tblUsersRepository.findAllByUsername(userName).stream().map(exitting -> modelMapper.map(exitting, TblUsersDTO.class)).collect(Collectors.toList());
+        return
+                userName.equals("") ? (tblUsersRepository.findAll().stream()
+                        .map(exitting -> {
+                            TblUsersDTO dto = new TblUsersDTO();
+                            // check data trong db có trường nào bị null ko
+                            if (exitting != null)
+                                dto = modelMapper.map(exitting, TblUsersDTO.class);
+                            return dto;
+                        })
+                        .collect(Collectors.toList()))
+                : (tblUsersRepository.findAllByUsername(userName).stream().map(exitting -> modelMapper.map(exitting, TblUsersDTO.class)).collect(Collectors.toList()));
     }
 
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
