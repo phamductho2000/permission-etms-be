@@ -46,4 +46,13 @@ public class ZtbMapCqtService {
         return ztbMapCqtDTO;
     }
 
+    // search theo điều kiện
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    public List<ZtbMapCqtDTO> findAllBySearchmaCqt(String maCqt) throws Exception {
+        log.debug("Request to get all findAllBySearch maCqt");
+        return
+                maCqt.equals("") ? (ztbMapCqtRepository.findAll().stream().map(exitting -> modelMapper.map(exitting, ZtbMapCqtDTO.class)).collect(Collectors.toList()))
+                        : (ztbMapCqtRepository.findAllByMaCqt(maCqt).stream().map(exitting -> modelMapper.map(exitting, ZtbMapCqtDTO.class)).collect(Collectors.toList()));
+    }
+
 }

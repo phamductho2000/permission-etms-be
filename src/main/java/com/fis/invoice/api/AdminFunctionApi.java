@@ -1,6 +1,7 @@
 package com.fis.invoice.api;
 
 import com.fis.invoice.dto.AdminFuncDTO;
+import com.fis.invoice.dto.TblUsersDTO;
 import com.fis.invoice.service.AdminFunctionService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
@@ -30,6 +31,14 @@ public class AdminFunctionApi {
     public ResponseEntity<?> getAllAdminFunc() throws Exception {
         log.debug("REST request to get a page of adminGroupUser");
         List<AdminFuncDTO> list =  adminFunctionService.findAll();
+        return ResponseEntity.ok(list);
+    }
+
+    @PostMapping("/getAllBySearchAdminFunc")
+    public ResponseEntity<?> getAllBySearchAdminFunc(@RequestBody AdminFuncDTO adminFuncDTO) throws Exception {
+        log.debug("REST request to getAllBySearch AdminFunc");
+        String funcName = adminFuncDTO.getFuncName();
+        List<AdminFuncDTO> list =  adminFunctionService.findAllBySearchAdminFunc(funcName);
         return ResponseEntity.ok(list);
     }
 }

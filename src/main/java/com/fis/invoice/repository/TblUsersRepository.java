@@ -4,7 +4,6 @@ import com.fis.invoice.domain.TblUsers;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -14,6 +13,8 @@ public interface TblUsersRepository extends JpaRepository<TblUsers, Integer> {
 
     List<TblUsers> findAllByUserIdIs (Integer userID);
 
+    // ly ra list UserId
+    List<TblUsers> findAllByUserIdIn (List<Integer> userID);
 
 
     @Query("select tbl from TblUsers tbl " +

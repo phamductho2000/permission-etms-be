@@ -35,4 +35,10 @@ public class ZtbMapCqtController {
     }
 
 
+    @PostMapping("/getAllBySearchZtb")
+    public ResponseEntity<?> getAllBySearchZtbMapCqt(@RequestBody ZtbMapCqtDTO ztbMapCqtDTO) throws Exception {
+        String maCqt = ztbMapCqtDTO.getMaCqt();
+        List<ZtbMapCqtDTO> list =  ztbMapCqtService.findAllBySearchmaCqt(maCqt);
+        return ResponseEntity.ok(list);
+    }
 }

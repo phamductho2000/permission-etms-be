@@ -2,6 +2,7 @@ package com.fis.invoice.service;
 
 import com.fis.invoice.domain.AdminFunction;
 import com.fis.invoice.dto.AdminFuncDTO;
+import com.fis.invoice.dto.TblUsersDTO;
 import com.fis.invoice.repository.AdminFunctionRepository;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -45,5 +47,12 @@ public class AdminFunctionService {
     public List<AdminFuncDTO> findAll() throws Exception {
         log.debug("Request to get all AdminGroupUser");
         return adminFunctionRepository.findAll().stream().map(exitting -> modelMapper.map(exitting, AdminFuncDTO.class)).collect(Collectors.toList());
+    }
+
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
+    public List<AdminFuncDTO> findAllBySearchAdminFunc(String funcName) throws Exception {
+        log.debug("Request to get all findAllBySearch AdminFunc");
+        return funcName.equals("") ? (adminFunctionRepository.findAll().stream().map(exitting -> modelMapper.map(exitting, AdminFuncDTO.class)).collect(Collectors.toList())) : (adminFunctionRepository.findAllByFuncName(funcName).stream().map(exitting -> modelMapper.map(exitting, AdminFuncDTO.class)).collect(Collectors.toList())) ;
     }
 }
