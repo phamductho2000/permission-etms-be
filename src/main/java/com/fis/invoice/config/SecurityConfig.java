@@ -50,7 +50,7 @@ public class SecurityConfig {
 		// @formatter:off
 		http.csrf(AbstractHttpConfigurer::disable)
 		.sessionManagement(se-> se.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-		.authorizeHttpRequests(au -> au.requestMatchers(HttpMethod.OPTIONS).permitAll()
+		.authorizeHttpRequests(au -> au.requestMatchers(HttpMethod.OPTIONS).authenticated()
 				.requestMatchers(AUTH_WHITELIST).permitAll()
 				.anyRequest().permitAll())
 		.exceptionHandling(ex -> ex.authenticationEntryPoint(authEntryPoint))
