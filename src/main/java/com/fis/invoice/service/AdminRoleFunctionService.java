@@ -2,8 +2,6 @@ package com.fis.invoice.service;
 
 import com.fis.invoice.domain.AdminFunction;
 import com.fis.invoice.domain.AdminRoleFunction;
-import com.fis.invoice.dto.AdminFuncDTO;
-import com.fis.invoice.dto.AdminRoleDTO;
 import com.fis.invoice.dto.AdminRoleFunctionDTO;
 import com.fis.invoice.dto.ReqRoleAdminFuncDTO;
 import com.fis.invoice.repository.AdminFunctionRepository;
